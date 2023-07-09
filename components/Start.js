@@ -1,9 +1,7 @@
 import { StyleSheet, View, Text, TextInput, 
-  TouchableOpacity, ImageBackground, Alert, LogBox } from 'react-native';
+  TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { useState } from 'react';
 import { getAuth, signInAnonymously } from 'firebase/auth';
-
-LogBox.ignoreLogs(["AsyncStorage has been extracted from"]);
 
 const Start = ({ navigation }) => {
   const [name, setName] = useState('');
