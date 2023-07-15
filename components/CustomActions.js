@@ -12,6 +12,7 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 const CustomActions = ({ storage, wrapperStyle, iconTextStyle, onSend, userID }) => {
   const actionSheet = useActionSheet();
 
+  // Deploy proper function after user chooses action
   const onActionPress = () => {
     const options = ['Choose from library', 'Take Picture', 'Send Location', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
@@ -36,6 +37,7 @@ const CustomActions = ({ storage, wrapperStyle, iconTextStyle, onSend, userID })
     );
   };
 
+  // Upload image from device and send in chat
   const pickImage = async () => {
     let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissions?.granted) {
@@ -45,6 +47,7 @@ const CustomActions = ({ storage, wrapperStyle, iconTextStyle, onSend, userID })
     }
   }
 
+  // Upload photo taken by user and send in chat
   const takePhoto = async () => {
     let permissions = await ImagePicker.requestCameraPermissionsAsync();
     if (permissions?.granted) {
@@ -54,6 +57,7 @@ const CustomActions = ({ storage, wrapperStyle, iconTextStyle, onSend, userID })
     }
   }
 
+  // Get users location and send in chat
   const getLocation = async () => {
     let permissions = await Location.requestForegroundPermissionsAsync();
     if (permissions?.granted) {
@@ -69,6 +73,7 @@ const CustomActions = ({ storage, wrapperStyle, iconTextStyle, onSend, userID })
     } else Alert.alert('Permissions to read location aren\'t granted');
   }
 
+  // Code for uploading and sending image (used by both takePhoto and pickImage)
   const uploadAndSendImage = async (imageURI) => {
     const uniqueRefString = generateReference(imageURI);
     const newUploadRef = ref(storage, uniqueRefString);
@@ -81,6 +86,7 @@ const CustomActions = ({ storage, wrapperStyle, iconTextStyle, onSend, userID })
     });
   }
 
+  // Generate a unique identifier for the picture that is uploaded to firebase
   const generateReference = (uri) => {
     const timeStamp = (new Date()).getTime();
     const imageName = uri.split('/')[uri.split('/').length - 1];

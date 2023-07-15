@@ -10,6 +10,7 @@ const Start = ({ navigation }) => {
   const [color, setColor] = useState('');
   const auth = getAuth();
 
+  // Sign in user anonymously using Firebase Authentication
   const signInUser = () => {
     signInAnonymously(auth)
       .then(result => {
